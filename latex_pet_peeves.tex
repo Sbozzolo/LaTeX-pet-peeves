@@ -1,0 +1,61 @@
+\documentclass[]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
+
+\DeclareSIUnit[]\sunmass{\text{\ensuremath{M_{\odot}}}}
+
+\author{Gabriele Bozzola}
+\title{What (not) to do in \LaTeX}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Spaces}%
+\label{sec:spaces}
+
+TL;DR\@: add ``\textbackslash'' after periods in abbreviations. Add ``@'' before
+periods in capitalized acronyms (e.g., TL;DR).
+
+In \LaTeX, spaces have different lengths. For example, the space between words
+is smaller than the space between sentences. This simple trick makes the
+document more readable. However, how does the rendering engine understand what
+kind of space to use? For that, a series of heuristics are used. For instance, a
+period (aka, a full stop) is typically used to indicate the end of a sentence,
+so it makes sense to put more space after this punctuation mark. However, this
+is not infallible. Consider abbreviations like ``e.g.'', ``i.e.''. Here we have
+periods that do no not indicate the end of a sentence, but it is impossible for
+\LaTeX~to know that, so, too much space will be used. Consider the difference
+between the following two sentences:
+
+\noindent
+There are many foods I like to eat in the summer. I like fruit, e.g. apples, bananas.\\
+There are many foods I like to eat in the summer. I like fruit, e.g.\ apples, bananas.\\
+
+There's a clear difference between the two sentences. The first one is incorrect.
+The second one was obtained adding a backslash after the period:
+\begin{verbatim}
+I like fruit, e.g.\ apples, bananas.
+\end{verbatim}
+
+\LaTeX~behaves in the opposite way with capitalized letters. It is assumed that
+periods indicate an acronym, e.g.~N.A.S.A., so \LaTeX~will assume that the
+sentence is not completed when it ends with a capitalized letter and a period.
+To inform the rendering engine that this is wrong, ``\textbackslash @'' has to
+be used \emph{before} the period.
+
+\begin{verbatim}
+a very powerful GPU\@.
+\end{verbatim}
+
+\noindent
+My computer does not have a very powerful GPU. This is not a big problem.\\
+My computer does not have a very powerful GPU\@. This is not a big problem.\\
+
+Typically, this does not result in very noticeable errors, but it is always
+best to inform \LaTeX~of your intents to avoid rendering problems.
+
+\end{document}
