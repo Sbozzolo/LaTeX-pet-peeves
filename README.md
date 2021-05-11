@@ -1,2 +1,3 @@
 # LaTeX-pet-peeves
-What (not) to do in LaTeX
+
+What (not) to do in LaTeX, see pdf.
